@@ -1,0 +1,32 @@
+\documentclass{article}
+\title{Computer simulations of Stochastic Processes}
+\author{Adam Janik}
+
+\usepackage{amsmath}
+
+\begin{document}
+	\pagenumbering{gobble}
+	\maketitle
+	\newpage
+	\pagenumbering{arabic}
+	
+	\section{Introduction}
+	In this report we are going to discuss and present some aspects regarding simulating stochastic processes. A couple of scripts has been attached to this document - they were used to produce plots and results in this report.
+	\section{Stable distribution}
+	In particular, we will discuss here stable distributions - a class of probability distributions, that allow skewness and heavy tails, and so have a lot of interesting mathematical properties, as well as many applications in finance, insurance mathematics, biology and many more.
+	\subsection{Definition}
+	We define $X$ as stable distribution if it holds the following property\footnote{Nolan J. P., "Stable Distributions. Models for Heavy Tailed Data", http://academic2.american.edu/~jpnolan/stable/stable.html}
+	\begin{equation}
+	aX_1+bX_2 \stackrel{d}{=} cX + d
+	\end{equation}
+	where $a, b$ and $c$ are positive, $d\in R$ and $X_1, X_2$ are independent copies of $X$.
+	However, there is also another representation of stable random variable; we can say, that random variable $X$ is stable if and only if $X \stackrel{d}{=} aZ + b$ witch $Z$ being random variable with characteristic function:
+	\begin{equation}
+		\mathbf{E} \exp(iuZ) = \begin{cases}
+		\exp(|u|^\alpha[1-i\beta \tan\frac{\pi \alpha}{2}(\mbox{sign}u)]) & \alpha \neq 1 \\
+		\exp(|u|[1+i\beta \frac{2}{\pi} (\mbox{sign}u) \log |u|]) & \alpha = 1
+		\end{cases}
+	\end{equation}
+In this equation we have $0<\alpha \leq 2$ and $-1 \leq \beta \leq 1$, $a$ must be different than $0$ and $b$ is a real number.
+\end{document}
+	
