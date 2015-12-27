@@ -4,6 +4,16 @@
 
 \usepackage{amsmath}
 
+\usepackage{ifthen,xcolor}
+\newlength{\tabcont}
+
+\newcommand{\tab}[1]{%
+\settowidth{\tabcont}{#1}%
+\ifthenelse{\lengthtest{\tabcont < .25\linewidth}}%
+{\makebox[.25\linewidth][l]{#1}\ignorespaces}%
+{\makebox[.5\linewidth][l]{\color{red} #1}\ignorespaces}%
+}%
+
 \begin{document}
 	\pagenumbering{gobble}
 	\maketitle
@@ -14,6 +24,14 @@
 	In this report we are going to discuss and present some aspects regarding simulating stochastic processes. A couple of scripts has been attached to this document - they were used to produce plots and results in this report.
 	\section{Stable distribution}
 	In particular, we will discuss here stable distributions - a class of probability distributions, that allow skewness and heavy tails, and so have a lot of interesting mathematical properties, as well as many applications in finance, insurance mathematics, biology and many more.
+	In general, an univariate stable random variables are characterized by four parameters:
+	\begin{itemize}
+	\item $\alpha$ - the most important one, called index of stability
+	\item $\sigma$ - scale parameter
+	\item $\beta$ - skewness parameter
+	\item $\mu$ - shift parameter
+	\end{itemize}
+	Those parameters will be discussed later, here we can mention that if we want to receive Gaussian distribution, we put $\alpha = 2$, $\beta = 0$, and so $\mu$ will be mean and $\sigma$ - standard deviation.
 	\subsection{Definition}
 	We define $X$ as stable distribution if it holds the following property\footnote{Nolan J. P., "Stable Distributions. Models for Heavy Tailed Data", http://academic2.american.edu/~jpnolan/stable/stable.html}
 	\begin{equation}
@@ -22,11 +40,55 @@
 	where $a, b$ and $c$ are positive, $d\in R$ and $X_1, X_2$ are independent copies of $X$.
 	However, there is also another representation of stable random variable; we can say, that random variable $X$ is stable if and only if $X \stackrel{d}{=} aZ + b$ witch $Z$ being random variable with characteristic function:
 	\begin{equation}
-		\mathbf{E} \exp(iuZ) = \begin{cases}
-		\exp(|u|^\alpha[1-i\beta \tan\frac{\pi \alpha}{2}(\mbox{sign}u)]) & \alpha \neq 1 \\
-		\exp(|u|[1+i\beta \frac{2}{\pi} (\mbox{sign}u) \log |u|]) & \alpha = 1
+		\mathbf{E} \exp(i\mu Z) = \begin{cases}
+		\exp(|\mu|^\alpha[1-i\beta \tan\frac{\pi \alpha}{2}(\mbox{sign}\mu)]) & \alpha \neq 1 \\
+		\exp(|\mu|[1+i\beta \frac{2}{\pi} (\mbox{sign}\mu) \log |\mu|]) & \alpha = 1
 		\end{cases}
 	\end{equation}
-In this equation we have $0<\alpha \leq 2$ and $-1 \leq \beta \leq 1$, $a$ must be different than $0$ and $b$ is a real number.
+In this equation we have $0<\alpha \leq 2$ and $-1 \leq \beta \leq 1$, $a$ must be different than $0$ and $b$ is a real number.\\
+A more precise description and derivation of stable distribution can be found in dedicated literature\footnote{Samorodnitsky G, Taqqu M.S, "Stable Non-Gaussian Random Processes"}. Here we are going to discuss some aspect of simulations and properties.
+	\subsection{Simulation and properties}
+	A simple function (for Matlab language) to simulate stable random variables\footnote{Borak, Hardle, Weron, 2005} has been attached to this report. Crucial for us is to check if it works correctly and investigate properties of the simulated distribution. Fortunately, a there is a very well-known program\footnote{http://academic2.american.edu/~jpnolan/stable/stablec.exe}, written by John P. Nolan, available on his website. With it's help, we will be able to test our function.
+	\subsubsection{Testing for correctness of the function}
+	Let's make four calls of the function to generate data, and then check if with Nolan's program:
+	\begin{itemize}
+	\item $gaussian = stable(2, 0, 1, 0, 100000);$
+	\item $cauchy = stable(1, 0, 1, 0, 100000);$
+	\item $levy = stable(0.5, 1.0, 1, 0, 100000);$
+	\item $distr = stable(1.3, 0.3, 2, -5, 100000);$
+	\end{itemize}
+	As a result, we obtained four samples of stable distribution; now we can check them with Nolan's program. We choose each time maximum likelihood estimators of parameters method to get parameters based on sample. \\
+	
+	For a variable \textit{gaussian} the output is:\\
+	 Stable model with maximum likelihood estimator
+	 
+  Initial quantile estimate of S0 parameters\\
+         \tab {alpha}      \tab{beta}      \tab{gamma}         \tab{delta}\\
+      \tab{2.000000}  \tab{0.000000}    \tab{1.00421}       \tab{0.911811E-03}   \\
+      
+   
+For a variable \textit{cauchy} the output is:\\
+	 Stable model with maximum likelihood estimator
+	 
+  Initial quantile estimate of S0 parameters\\
+         \tab {alpha}      \tab{beta}      \tab{gamma}         \tab{delta}\\
+      \tab{0.995880}  \tab{-0.017271}    \tab{1.00109}       \tab{0.190453E-02}\\
+
+
+For a variable \textit{levy} the output is:\\
+	 Stable model with maximum likelihood estimator
+	 
+  Initial quantile estimate of S0 parameters\\
+         \tab {alpha}      \tab{beta}      \tab{gamma}         \tab{delta}\\
+      \tab{0.506668}  \tab{0.815349}    \tab{1.31190}       \tab{1.17643}   \\
+\newpage    
+For a variable \textit{distr} the output is:\\
+	 Stable model with maximum likelihood estimator
+	 
+  Initial quantile estimate of S0 parameters\\
+         \tab {alpha}      \tab{beta}      \tab{gamma}         \tab{delta}\\
+      \tab{1.306687}  \tab{0.311575}    \tab{1.99745}       \tab{-6.18514}   \\
+      
+We can say here now, that estimation goes worse as $\alpha$ is going lower - especially for $\mu$ (or - in other sources $\sigma$) parameter; we should be careful when we are saying something about shift parameter, when we operating on the low-$\alpha$ samples.
 \end{document}
 	
