@@ -1,7 +1,8 @@
 function Y=stable(alpha,beta,sigma,mu,n)
 
-a = -pi; b = pi;
-V = (b - a).*rand(1,n) + a;
+%a = -pi/2; b = pi/2;
+%V = (b - a).*rand(1,n) + a;
+V=rand(1,n)*pi-pi/2;
 W = exprnd(1, 1, n);
 
 B = atan(beta * tan(pi*alpha/2) ) / alpha;
@@ -18,6 +19,6 @@ else
 end
 
 Y=sigma.*X + mu;
-%Y=Y';
+Y=Y';
 end
 
