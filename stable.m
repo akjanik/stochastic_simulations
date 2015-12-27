@@ -13,12 +13,14 @@ if alpha ~= 1
     X = S .* ...
         sin( alpha .* (V + B) ) ./ ( cos(V).^(1./alpha) ) .* ...
         ( cos( V - alpha.*(V + B) ) ./ W ).^( (1 - alpha)./alpha );
+    Y=sigma.*X + mu;
 else
     X = 2/pi .* ( (pi/2 + beta.*V) .* tan(V) - ...
         beta .* log( ( pi/2 .*W.*cos(V) ) ./ ( pi./2 + beta.*V ) ) );
+    Y=sigma.*X + 2/pi * beta * sigma*log(sigma) + mu;
 end
 
-Y=sigma.*X + mu;
+
 Y=Y';
 end
 
