@@ -14,6 +14,33 @@
 {\makebox[.5\linewidth][l]{\color{red} #1}\ignorespaces}%
 }%
 
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Matlab,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4
+}
+
+
+
+
 \begin{document}
 	\pagenumbering{gobble}
 	\maketitle
@@ -51,44 +78,101 @@ A more precise description and derivation of stable distribution can be found in
 	A simple function (for Matlab language) to simulate stable random variables\footnote{Borak, Hardle, Weron, 2005} has been attached to this report. Crucial for us is to check if it works correctly and investigate properties of the simulated distribution. Fortunately, a there is a very well-known program\footnote{http://academic2.american.edu/~jpnolan/stable/stablec.exe}, written by John P. Nolan, available on his website. With it's help, we will be able to test our function.
 	\subsubsection{Testing for correctness of the function}
 	Let's make four calls of the function to generate data, and then check if with Nolan's program:
-	\begin{itemize}
-	\item $gaussian = stable(2, 0, 1, 0, 100000);$
-	\item $cauchy = stable(1, 0, 1, 0, 100000);$
-	\item $levy = stable(0.5, 1.0, 1, 0, 100000);$
-	\item $distr = stable(1.3, 0.3, 2, -5, 100000);$
-	\end{itemize}
+	\begin{lstlisting}
+	gaussian = stable(2, 0, 1, 0, 100000);$
+	cauchy = stable(1, 0, 1, 0, 100000);$
+	levy = stable(0.5, 1.0, 1, 0, 100000);$
+	distr = stable(1.3, 0.3, 2, -5, 100000);$
+	\end{lstlisting}
 	As a result, we obtained four samples of stable distribution; now we can check them with Nolan's program. We choose each time maximum likelihood estimators of parameters method to get parameters based on sample. \\
 	
-	For a variable \textit{gaussian} the output is:\\
+	For a variable \textit{gaussian} the output is:
+	\begin{lstlisting}
 	 Stable model with maximum likelihood estimator
 	 
-  Initial quantile estimate of S0 parameters\\
-         \tab {alpha}      \tab{beta}      \tab{gamma}         \tab{delta}\\
-      \tab{2.000000}  \tab{0.000000}    \tab{1.00421}       \tab{0.911811E-03}   \\
-      
+  Initial quantile estimate of S0 parameters
+         alpha     beta      gamma         delta
+      2.000000}  0.000000    1.00421       0.911811E-03   
+\end{lstlisting}       
    
-For a variable \textit{cauchy} the output is:\\
+For a variable \textit{cauchy} the output is:
+\begin{lstlisting}
 	 Stable model with maximum likelihood estimator
 	 
-  Initial quantile estimate of S0 parameters\\
-         \tab {alpha}      \tab{beta}      \tab{gamma}         \tab{delta}\\
-      \tab{0.995880}  \tab{-0.017271}    \tab{1.00109}       \tab{0.190453E-02}\\
-
+  Initial quantile estimate of S0 parameters
+         alpha      beta      gamma         delta
+      0.995880  -0.017271    1.00109       0.190453E-02
+\end{lstlisting} 
 
 For a variable \textit{levy} the output is:\\
+\begin{lstlisting}
 	 Stable model with maximum likelihood estimator
 	 
-  Initial quantile estimate of S0 parameters\\
-         \tab {alpha}      \tab{beta}      \tab{gamma}         \tab{delta}\\
-      \tab{0.506668}  \tab{0.815349}    \tab{1.31190}       \tab{1.17643}   \\
-\newpage    
-For a variable \textit{distr} the output is:\\
+  Initial quantile estimate of S0 parameters
+         alpha      beta      gamma         delta
+      0.506668  0.815349    1.31190       1.17643   
+\end{lstlisting} 
+
+For a variable \textit{distr} the output is:
+\begin{lstlisting}
 	 Stable model with maximum likelihood estimator
 	 
-  Initial quantile estimate of S0 parameters\\
-         \tab {alpha}      \tab{beta}      \tab{gamma}         \tab{delta}\\
-      \tab{1.306687}  \tab{0.311575}    \tab{1.99745}       \tab{-6.18514}   \\
-      
+  Initial quantile estimate of S0 parameters
+         alpha      beta      gamma         delta
+      1.306687  0.311575    1.99745       -6.18514   
+\end{lstlisting}  
 We can say here now, that estimation goes worse as $\alpha$ is going lower - especially for $\mu$ (or - in other sources $\sigma$) parameter; we should be careful when we are saying something about shift parameter, when we operating on the low-$\alpha$ samples.
+
+\subsubsection{Property 1}
+First, we are going to study the following property\footnote{Samorodnitsky G, Taqqu M.S, "Stable Non-Gaussian Random Processes"}:
+\subparagraph{Property 1}
+\textit{Let $X_1$ and $X_2$ be independent stable random variables, $X_i \sim S_\alpha(\beta_i, \sigma_i, \mu_i)$, $i = 1,2$. Then $X_1 + X_2 \sim S_\alpha(\beta, \sigma, \mu)$, with: }
+\begin{equation}
+\sigma = (\sigma_1^\alpha + \sigma_2^\alpha)^{1/\alpha}, \qquad \mu = \mu_1 + \mu_2, \qquad \beta = \frac{\beta_1\sigma_1^\alpha + \beta_2\sigma_2^\alpha}{\sigma_1^\alpha + \sigma_2^\alpha}
+\end{equation}
+Following code has been ran to simulate two samples:
+
+\begin{lstlisting}
+alpha = 1.8;
+mu1 = 1; mu2 = 0.5;
+sigma1 = 0.5; sigma2 = 0.3;
+beta1 = 0.3; beta2 = 0.8;
+sigma = ( sigma1^alpha + sigma2^alpha )^(1/alpha);
+beta = ( beta1*(sigma1^alpha) + beta2*(sigma2^alpha) ) / ( sigma1^alpha + sigma2^alpha );
+mu = mu1 + mu2;
+
+X1 = stable(alpha, beta1, sigma1, mu1, 10000000);
+X2 = stable(alpha, beta2, sigma2, mu2, 10000000);
+X = X1 + X2;
+save X.txt X -ascii;
+\end{lstlisting}
+Values computed according to formula above are as follows: $sigma = 0.6025, \beta = 0.4425, \mu = 1.5000$; output from Nolan's program, checking parameters:
+\begin{lstlisting}
+  Initial quantile estimate of S0 parameters
+         alpha      beta      gamma         delta
+      1.800206  0.452978   0.602503        1.41195 
+\end{lstlisting}   
+The largest difference between theoretical and simulated value is at $\delta$ (or $\mu$) parameter; however, taking consideration, that in the previous examples it was most variable parameter, we can say that property holds.
+
+\subsubsection{Property 2}
+Another property, that we can easily check is the following one
+\subparagraph{Property 2}
+For any $0 < \alpha < 2$,
+\begin{equation}
+X \sim S_\alpha(\beta, \sigma, \mu) \iff -X \sim S_\alpha(-\beta, \sigma, \mu)
+\end{equation}
+
+\begin{lstlisting}
+alpha = 1.8; mu = 0; sigma = 1; beta = 0.7;
+X = stable(alpha, beta, sigma, mu, 1000000);
+X = -X; save X.txt X -ascii;
+\end{lstlisting} 
+And again we check with the Nolan's program:
+\begin{lstlisting}
+  Initial quantile estimate of S0 parameters
+         alpha      beta      gamma         delta
+      1.802983 -0.716207    1.00018       0.230816 
+\end{lstlisting}
+We can say that property holds
 \end{document}
 	
