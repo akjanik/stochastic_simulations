@@ -16,6 +16,7 @@
 
 \usepackage{listings}
 \usepackage{color}
+\usepackage{graphicx}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -38,7 +39,8 @@
   tabsize=4
 }
 
-
+\newcommand\xput[2][0.5]{%
+    \rule{#1\linewidth}{0pt}\makebox[0pt][c]{#2}\hfill}
 
 
 \begin{document}
@@ -74,6 +76,7 @@
 	\end{equation}
 In this equation we have $0<\alpha \leq 2$ and $-1 \leq \beta \leq 1$, $a$ must be different than $0$ and $b$ is a real number.\\
 A more precise description and derivation of stable distribution can be found in dedicated literature\footnote{Samorodnitsky G, Taqqu M.S, "Stable Non-Gaussian Random Processes"}. Here we are going to discuss some aspect of simulations and properties.
+
 	\subsection{Simulation and properties}
 	A simple function (for Matlab language) to simulate stable random variables\footnote{Borak, Hardle, Weron, 2005} has been attached to this report. Crucial for us is to check if it works correctly and investigate properties of the simulated distribution. Fortunately, a there is a very well-known program\footnote{http://academic2.american.edu/~jpnolan/stable/stablec.exe}, written by John P. Nolan, available on his website. With it's help, we will be able to test our function.
 	\subsubsection{Testing for correctness of the function}
@@ -123,6 +126,50 @@ For a variable \textit{distr} the output is:
 \end{lstlisting}  
 We can say here now, that estimation goes worse as $\alpha$ is going lower - especially for $\mu$ (or - in other sources $\sigma$) parameter; we should be careful when we are saying something about shift parameter, when we operating on the low-$\alpha$ samples.
 
+	\begin{figure}[h]
+		\xput[0.5]{\includegraphics[width=1.7\linewidth]{gauss_cauchy_levy}}
+		
+		\caption{Simulated three important distributions with $\alpha = 2, 1, 0.5$}
+	\end{figure}
+
+\subsection{Description of the parameters}
+In this subsection we will discuss each of the parameters and how changing them, impacts obtained sample.
+\subsubsection{$\alpha$ parameter}
+Mentioned before, index of stability is often referred as the most important one. On the Figure 2 three samples have been presented, to illustrate how stable distribution behave with decreasing $\alpha$. We can see that three things occur to the density: peak gets higher, the region flanking peak get lower, and - what makes stable distribution such important and interesting - the tails gets heavier.\\
+As shown in the next section, $\alpha$ affects heavily other parameters.
+
+	\begin{figure}[h]
+		\xput[0.5]{\includegraphics[width=1.7\linewidth]{stable_param_alpha}}
+		
+		\caption{Stable distribution pdf and empirical cdf for $\alpha = 0.7, 1.3, 1.8$}
+	\end{figure}
+
+\subsubsection{$\beta$ parameter}
+Three different plots for different simulated samples will be needed, to show how $\beta$ influence our distribution.
+
+Figure 3 allows us to see, that with increasing $\beta$, the distribution becomes more and more skewed to the right (in case of $\beta$ negative, we would see similar behavior, but to the left side)
+	\begin{figure}[h]
+		\xput[0.5]{\includegraphics[width=1.5\linewidth]{stable_param_beta13}}
+		
+		\caption{Stable distribution pdf and empirical cdf for $\alpha = 1.3$ and $ beta = 0, 0.5, 1$}
+	\end{figure}
+\newpage
+In Figures 4 and 5 $\beta$ varying in the same way, but samples has been simulated for $\alpha = 1$ and $\alpha = 0.7$ respectively.
+	\begin{figure}[h]
+		\xput[0.5]{\includegraphics[width=1.5\linewidth]{stable_param_beta10}}
+		
+		\caption{Stable distribution pdf and empirical cdf for $\alpha = 1$ and $ beta = 0, 0.5, 1$}
+	\end{figure}
+	
+	\begin{figure}[h]
+		\xput[0.5]{\includegraphics[width=1.5\linewidth]{stable_param_beta07}}
+		
+		\caption{Stable distribution pdf and empirical cdf for $\alpha = 0.7$ and $ beta = 0, 0.5, 1$}
+	\end{figure}
+We see that with decreasing $\alpha$, $\beta$ becomes more and more significant, making distribution more and more skewed, until it reach 1 (-1) - then we say that distribution is \textit{totally skewed to the right (left)}. It can also be shown, that for $\alpha < 1$ and $|\beta| = 1$ the whole weight is in one of the tails (depending if $\beta$ is negative or positive).
+\clearpage
+\subsection{Properties}
+Here we discuss some of the commonly known properties\footnote{Samorodnitsky G, Taqqu M.S, "Stable Non-Gaussian Random Processes"} of the stable distributions.
 \subsubsection{Property 1}
 First, we are going to study the following property\footnote{Samorodnitsky G, Taqqu M.S, "Stable Non-Gaussian Random Processes"}:
 \subparagraph{Property 1}
