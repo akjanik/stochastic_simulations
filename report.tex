@@ -139,7 +139,7 @@ Mentioned before, index of stability is often referred as the most important one
 As shown in the next section, $\alpha$ affects heavily other parameters.
 
 	\begin{figure}[h]
-		\xput[0.5]{\includegraphics[width=1.7\linewidth]{stable_param_alpha}}
+		\xput[0.5]{\includegraphics[width=1.5\linewidth]{stable_param_alpha}}
 		
 		\caption{Stable distribution pdf and empirical cdf for $\alpha = 0.7, 1.3, 1.8$}
 	\end{figure}
@@ -167,7 +167,23 @@ In Figures 4 and 5 $\beta$ varying in the same way, but samples has been simulat
 		\caption{Stable distribution pdf and empirical cdf for $\alpha = 0.7$ and $ beta = 0, 0.5, 1$}
 	\end{figure}
 We see that with decreasing $\alpha$, $\beta$ becomes more and more significant, making distribution more and more skewed, until it reach 1 (-1) - then we say that distribution is \textit{totally skewed to the right (left)}. It can also be shown, that for $\alpha < 1$ and $|\beta| = 1$ the whole weight is in one of the tails (depending if $\beta$ is negative or positive).
+
 \clearpage
+
+\subsubsection{$\sigma$ and $\mu$ parameters}
+Here we briefly take a look for remaining two parameters. $\sigma$ tells us about how spread distribution is, while $\mu$ - where the "center" of the parameter is. For a Gaussian distribution we call them \textit{variance} and \textit{mean} respectively, however, we should generally avoid those terms, as they may not exist according to mathematical definitions.
+	\begin{figure}[h]
+		\xput[0.5]{\includegraphics[width=1.2\linewidth]{stable_param_sigma}}
+		
+		\caption{Stable distribution pdf and empirical cdf for $\alpha = 1.3$ and $ sigma = 1, 1.5, 3$}
+	\end{figure}
+\newpage
+	\begin{figure}[h]
+		\xput[0.5]{\includegraphics[width=1.2\linewidth]{stable_param_mu}}
+		
+		\caption{Stable distribution pdf and empirical cdf for $\alpha = 1.3$ and $ mu = -2, 1, 3$}
+	\end{figure}
+
 \subsection{Properties}
 Here we discuss some of the commonly known properties\footnote{Samorodnitsky G, Taqqu M.S, "Stable Non-Gaussian Random Processes"} of the stable distributions.
 \subsubsection{Property 1}
