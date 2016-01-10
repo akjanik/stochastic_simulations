@@ -1,5 +1,5 @@
-function Y=stable(alpha,beta,sigma,mu,n, s)
-rng(s);
+function Y=stable(alpha,beta,sigma,mu,n)
+%rng(s);
 %a = -pi/2; b = pi/2;
 %V = (b - a).*rand(1,n) + a;
 V=rand(1,n)*pi-pi/2;
@@ -21,6 +21,6 @@ else
 end
 
 
-Y=Y';
+Y=Y;
 end
 
