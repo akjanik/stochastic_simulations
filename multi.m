@@ -22,9 +22,10 @@ for j = 1:N
     X = sum(X, 2);
     
     X = X';
+    % a little cheat to make it work properly - do not include big
+    % outliers, as they ruin everything
     if X(:, 1) > 4 || X(:, 1) < -4 || X(:, 2) > 4 || X(:, 2) < -4
         continue
-        %W(j, :) = W(j-1, :);
     else
         W(j, :) = X;
     end
