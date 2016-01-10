@@ -1,3 +1,5 @@
+%retrieve plot 1 from nolan overview
+
 clear all; close all;
 alpha = 0.9;
 n = 6;
@@ -9,7 +11,7 @@ gam5 = 0.125; s5 = [-0.5, -sqrt(3)/2];
 gam6 = 0.25; s6 = [0.5, -sqrt(3)/2];
 gam = [gam1, gam2, gam3, gam4, gam5, gam6];
 s = [s1', s2', s3', s4', s5', s6'];
-N = 1e5;
+N = 1e6;
 W = zeros(N, 2);
 for j = 1:N
     Z = stable(alpha, 1, 1, 0, n);
