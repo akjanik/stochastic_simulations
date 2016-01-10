@@ -186,7 +186,7 @@ Here we briefly take a look for remaining two parameters. $\sigma$ tells us abou
 
 \subsection{Properties}
 Here we discuss some of the commonly known properties\footnote{Samorodnitsky G, Taqqu M.S, "Stable Non-Gaussian Random Processes"} of the stable distributions.
-\subsubsection{Property 1}
+\subsubsection{Property 1 - sum of stable random variables}
 First, we are going to study the following property\footnote{Samorodnitsky G, Taqqu M.S, "Stable Non-Gaussian Random Processes"}:
 \subparagraph{Property 1}
 \textit{Let $X_1$ and $X_2$ be independent stable random variables, $X_i \sim S_\alpha(\beta_i, \sigma_i, \mu_i)$, $i = 1,2$. Then $X_1 + X_2 \sim S_\alpha(\beta, \sigma, \mu)$, with: }
@@ -236,6 +236,30 @@ And again we check with the Nolan's program:
          alpha      beta      gamma         delta
       1.802983 -0.716207    1.00018       0.230816 
 \end{lstlisting}
-We can say that property holds
+We can say that property holds.
+
+\subsubsection{Property 3 - series representation}
+We are going to show now, that $\alpha$-stable random variable can be represented as a convergent sum of random variables involving arrival times of a Poisson process.\\
+We consider stable process for $0 < \alpha < 0$. Let's denote $N_\delta$ - Poisson r.v. with parameter $\delta$. We need to introduce a new r.v. with distribution function:
+	\begin{equation*}
+		P(Y_{\delta, k}) = \begin{cases}
+		\delta^\alpha X^{-\alpha} & X > \delta \\
+		1 & X < \delta
+		\end{cases}
+	\end{equation*}
+Now, if we look at the following variable:
+\begin{equation*}
+X_\delta = \sum_{k>1}^{N_j} Y_{j,k}
+\end{equation*}
+We can say, that $X_\delta$ for $\delta$ going to 0 becomes $\alpha$ subordinator - stable r.v. with parameters $S(\alpha, \sigma, 1, 0)$ with:
+\begin{equation*}
+\sigma^\alpha = \Gamma(1 - \alpha)cos(\pi \frac{\alpha}{2})
+\end{equation*}
+Figure 8 shows how tails of the distribution converges to stable distribution (blue line is $S(\alpha, \sigma, 1, 0)$).
+	\begin{figure}[h]
+		\xput[0.5]{\includegraphics[width=1.2\linewidth]{stablesubordin}}
+		
+		\caption{Tails of stable subordinators for different $\delta$ on double log scale; $\alpha = 0.7$ here.}
+	\end{figure}
 \end{document}
 	
