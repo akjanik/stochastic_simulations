@@ -17,6 +17,7 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{graphicx}
+\usepackage{amssymb}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -261,5 +262,59 @@ Figure 8 shows how tails of the distribution converges to stable distribution (b
 		
 		\caption{Tails of stable subordinators for different $\delta$ on double log scale; $\alpha = 0.7$ here.}
 	\end{figure}
+
+\section{Multivariate stable distributions}
+An logic step forward is to simulate and investigate multivariate stable distributions. We will briefly note important facts about them, and then present method of simulation and results.
+\subsection{Characterization}
+We use $\mathbf{X}$ to denote $d$-dimensional $\alpha$-stable random vector determined by the spectral measure $\Gamma$ (a finite Borel measure on $S_d$ = unit sphere in $\mathbb{R}$) and a shift vector $\mu^0 \in \mathbb{R}^d$. The characteristic function of $\mathbf{X}$ is:
+\begin{equation}
+\psi_{\mathbf{X}}(\mathbf{t}) = \mathbf{E}\exp\{i< \mathbf{X}, \mathbf{t} >\} = \exp(-I_\mathbf{X}(\mathbf{t}) + i < \mu^0, t>)
+\end{equation}
+Where $I_\mathbf{X}$ is:
+\begin{equation}
+I_\mathbf{X}(\mathbf{t}) = \int_{S_d}\psi_\alpha(<\mathbf{t}, \mathbf{s}>)\Gamma(ds)
+\end{equation}
+and $\psi_\alpha$:
+
+	\begin{equation}
+		\psi_\alpha(u) = \begin{cases}
+		|u|^{\alpha}(1 - i \mbox{sign}(u) \tan(\frac{\pi \alpha}{2}) & \alpha \neq 1 \\
+		|u|(1 - i \frac{2}{\pi}\mbox{sign}(u) \log(|u|) & \alpha = 1
+		\end{cases}
+	\end{equation}
+
+\subsection{Simulation}
+For simulation, we consider $\Gamma$ as a discrete spectral measure with finite number of point masses:
+\begin{equation}
+\Gamma( \cdot ) = \sum_{j=1}^n \gamma_j \delta_{\mathbf{s}_{j}}( \cdot )
+\end{equation}
+Where $\gamma_j$'s are weights and $\delta_\mathbf{s_{j}}$'s are point masses at the point $\mathbf{s_j} \in S_d$. With that knowledge, we can define method for simulating random vectors\footnote{[3]}:
+	\begin{equation}
+		\mathbf{X} \stackrel{D}{=} \begin{cases}
+		\sum_{j=1}^{n} \gamma_{j}^{1/\alpha} Z_j \mathbf{s}_j & \alpha \neq 1 \\
+		\sum_{j=1}^{n} \gamma_{j} (Z_j + \frac{2}{\pi}\log \gamma_j) \mathbf{s}_j & \alpha = 1
+		\end{cases}
+	\end{equation}
+To test algorithm, we will try to retrieve contour plots from J. Nolan's paper; after setting the variables (whole procedure in \textit{multi.m} file):
+\begin{lstlisting}
+gam1 = 0.25; s1 = [1, 0]; 
+gam2 = 0.125; s2 = [0.5, sqrt(3)/2];
+gam3 = 0.25; s3 = [-0.5, sqrt(3)/2];
+gam4 = 0.25; s4 = [-1, 0];
+gam5 = 0.125; s5 = [-0.5, -sqrt(3)/2];
+gam6 = 0.25; s6 = [0.5, -sqrt(3)/2];
+\end{lstlisting} 
+And similar for second case, we obtain plots as in Figure XXX and YYY.
+	\begin{figure}[h]
+		\xput[0.5]{\includegraphics[width=0.75\linewidth]{multi_contour1}}
+		
+		\caption{Two dimensional symmetric stable curves with $\alpha = 0.9$}
+	\end{figure}
+	\begin{figure}[h]
+		\xput[0.5]{\includegraphics[width=0.75\linewidth]{multi_contour2}}
+		
+		\caption{Two dimensional non-symmetric stable curves with $\alpha = 1.6$}
+	\end{figure}
+
 \end{document}
 	
