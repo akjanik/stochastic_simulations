@@ -304,7 +304,7 @@ gam4 = 0.25; s4 = [-1, 0];
 gam5 = 0.125; s5 = [-0.5, -sqrt(3)/2];
 gam6 = 0.25; s6 = [0.5, -sqrt(3)/2];
 \end{lstlisting} 
-And similar for second case, we obtain plots as in Figure XXX and YYY.
+And similar for second case, we obtain plots as in Figure 9 and 10.
 	\begin{figure}[h]
 		\xput[0.5]{\includegraphics[width=0.75\linewidth]{multi_contour1}}
 		
@@ -315,6 +315,44 @@ And similar for second case, we obtain plots as in Figure XXX and YYY.
 		
 		\caption{Two dimensional non-symmetric stable curves with $\alpha = 1.6$}
 	\end{figure}
+
+
+
+\clearpage
+\section{Alpha-stable Levy motion}
+Define $\alpha$-stable Levy motion as follows\footnote{[2]}:
+\subparagraph{Definition}
+An \textit{$\alpha$-stable Levy motion} is a process $\{X(t), t \in \mathbb{R}\}$, starting from 0 with stationary independent increments having a $\alpha$-stable distribution.\\
+\\
+One of the most important properties of this process is \textit{self-similarity}, namely:
+\begin{equation}
+X(ct) \stackrel{d}{=} c^{1/\alpha}X(t)
+\end{equation}
+Where $\frac{1}{\alpha}$ is a \textit{H} value, known as \textit{self-similarity index}.
+\subsection{Simulation}
+Algorithm for simulating Levy motion in interval $[t, T]$ is as follows:
+\begin{enumerate}
+\item Set $I = T - t$ and $\tau = T/I$
+\item Set $L(0) = 0$
+\item Evaluate $L((i + 1)\tau) = L_\alpha(i\tau) + \xi_i$, where $\xi_i \sim S_\alpha(\tau^{\frac{1}{\tau}}, \beta, u)$
+\end{enumerate}
+On the Figure 11 we can see sample path of the Levy motion, simulated for $\alpha = 1.5$.
+
+	\begin{figure}[h]
+		\xput[0.5]{\includegraphics[width=1\linewidth]{levymotion_sample}}
+		
+		\caption{Path of the Levy motion for $\alpha = 1.5$}
+	\end{figure}
+\newpage
+To observe and interesting fact of the Levy motion, let's denote $q_p(t)$ as a quantile of order \textit{p}. Then ($X(t)$ is Levy motion):
+\begin{align*} 
+P(X(t) < q_p(t)) = p  \\ 
+P(X(1) < t^{\frac{-1}{\alpha}}q_p(t)) = p
+\end{align*}
+We can see that:
+\begin{equation*}
+q_p(1) = t^{\frac{-1}{\alpha}}q_p(t)
+\end{equation*}
 
 \end{document}
 	
