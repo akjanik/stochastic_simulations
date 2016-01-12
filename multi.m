@@ -39,6 +39,9 @@ data = W;
 contour(X,Y,density), hold on
 %    plot(data(:,1),data(:,2),'r.','MarkerSize',5)
 
+%     contour3(X,Y,density,50), hold on
+%     plot(data(:,1),data(:,2),'r.','MarkerSize',5)
+
 %[X1,Y1] = meshgrid(x,y);
 % contour(density, 10)
 %surf(X,Y,density)
