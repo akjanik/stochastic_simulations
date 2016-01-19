@@ -1,9 +1,9 @@
-function Y=stable(alpha,beta,sigma,mu,n)
-%rng(s);
+function Y=stable3(alpha, beta, sigma, mu, n)
 %a = -pi/2; b = pi/2;
 %V = (b - a).*rand(1,n) + a;
-V=rand(1,n)*pi-pi/2;
-W = exprnd(1, 1, n);
+V=pi.*(rand(1,n)-1/2);
+%W = exprnd(1, 1, n);
+W = -log(rand(1,n));
 
 B = atan(beta * tan(pi*alpha/2) ) / alpha;
 S = (1 + beta.^2 * (tan(pi*alpha/2)).^2 ).^( 1/(2*alpha) );
@@ -21,6 +21,6 @@ else
 end
 
 
-Y=Y;
+Y=Y';
 end
 
