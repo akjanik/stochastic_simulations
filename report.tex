@@ -429,6 +429,32 @@ Using this, we can check how this method estimate $\alpha$ from our sample. For 
 		
 		\caption{MSE of our parameter}
 \end{figure}
+
+\subsection{H parameter}
+To estimate Hurst parameter we will use common method known as fluctuation analysis (FA). Our subject is well-known self-similar process - fractional Brownian motion.\\
+We use the fact that:
+\begin{equation*}
+F(s) \sim s^H
+\end{equation*}
+Where $F(s)$ is our fluctuation function, s - time scale and H - Hurst parameter. Method is based on calculating slope of this function on double log scale.\\
+According to formula from\footnote{[6]}:
+\begin{equation*}
+	F(s) = \sqrt[]{ < [ y(t+s) - y(t) ]^2 > }
+\end{equation*}
+And using some tricks from lab, we can easy compute slope on double logarithmic scale.\\
+Figure 19 and 20 shows boxplots of estimated H parameters and MSE. For a H close to 1, error becomes larger, but it looks better than in estimating $\alpha$ parameter.
+\begin{figure}[h]
+		\xput[0.5]{\includegraphics[width=0.95\linewidth]{h_est_boxplot}}
+		
+		\caption{Boxplots of $H$}
+\end{figure}
+
+\begin{figure}[h]
+		\xput[0.5]{\includegraphics[width=0.95\linewidth]{h_est_mse}}
+		
+		\caption{MSE of our parameter}
+\end{figure}
+
 \clearpage
 \section{Bibliography}
 [1] Stable Distributions, Models for Heavy Tailed Data; John P. Nolan; 2014 
@@ -440,5 +466,8 @@ Using this, we can check how this method estimate $\alpha$ from our sample. For 
 [4] The Lamperti Transformation for Self-Similar Processes; K. Burnecki, M. Maejima, A. Weron; 1997
 
 [5] Estimation of the Parameters of Skewed $alpha$-Stable Distributions; Ch. R. Dance; 1999
+
+[6] Comparing the performance of FA, DFA and DMA using different synthetic long-range correlated time
+series; Ying-Hui Shao et.al.; 2012
 \end{document}
 	
