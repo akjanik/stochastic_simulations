@@ -1,0 +1,18 @@
+ beta = 0; sigma = 1; mu = 0;
+%  alpha = 1.5;
+m = 100;
+estymator = 
+for j = 1:20
+    alpha = j/10;
+    alpha_est = zeros(1,m);
+    for i = 1:100
+        n = 1000;
+        a = stable(alpha, beta, sigma, mu, n);
+        X = abs(a);
+        L = mean( (log(X) - mean(log(X))).^2 );
+        phi = (pi^2) / 6;
+
+        alpha_est(i) = ( L/phi - 1/2 )^(-1/2);
+    end
+    estymator(j) = alpha_est;
+end
